@@ -8,4 +8,6 @@ TODO:
 - add docs
 - add installer
 - debug?
+.. image:: https://travis-ci.org/reactive-firewall/FetchPublicBlacklists.svg?branch=master
+    :target: https://travis-ci.org/reactive-firewall/FetchPublicBlacklists
 - etc
