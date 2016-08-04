@@ -1,10 +1,11 @@
-#! /usr/bin/env python -c
+#! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
 import argparse
 import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import helpers
 
 def parseArgs():
@@ -295,11 +296,9 @@ def writeEximIPBlacklistFile(manyIP, denyFile='/etc/exim4/local_host_blacklist')
 	return None
 
 def main():
-	args = parse_my_args()
-
+	args = parseArgs()
 	if args.dry_run is True:
 		print(str("dry run"))
-
 	if args.config is not None:
 		tmp_dir="/tmp/"
 		temp_url_list = extractConfigItem('URL Sources', 'urls', args.config).split(",")
@@ -376,3 +375,6 @@ def main():
 		print(str("nothing to do"))
 
 	exit(0)
+
+if __name__ == '__main__':
+	main()

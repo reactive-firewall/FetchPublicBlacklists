@@ -11,7 +11,7 @@ with open('LICENSE') as f:
 
 setup(
     name='sample',
-    version='0.1.4',
+    version='0.1.5',
     description='New package from reactive-firewall',
     long_description=readme,
     author='reactive-firewall',
