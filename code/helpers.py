@@ -189,17 +189,17 @@ def getBcastAddrforIPv4():
 
 #test function DO NOT USE
 def TEST_IP_UTIL_PY_DEBUG():
-	print IPRange_to_mask("1.2.3.0", "1.2.3.6")
+	print(str(IPRange_to_mask("1.2.3.0", "1.2.3.6")))
 	the_IP=IPv4_to_IP("1.2.2.249")
 	print(the_IP)
 	print(IP_to_IPv4(the_IP))
 	for mask in range(0, 32):
-		print "/" + str(mask+1)
+		print(str("/" + str(mask+1)))
 		print(getNetAddrforIPv4(IP_to_IPv4(the_IP), mask+1))
 	
 	test_list = ["1.2.3.1", "1.2.3.2", "1.2.3.3", "1.2.3.4", "1.2.3.5", "1.2.3.6", "5.6.7.8", "8.7.6.5", "1.2.2.250", "41.2.2.251", "1.2.2.252", "1.2.2.253", "1.2.2.254" , "1.2.2.255"]
-	print Extract_IPv4_Runs(test_list)
-	print compress_ip_list_to_cidr(test_list)
+	print(str(Extract_IPv4_Runs(test_list)))
+	print(compress_ip_list_to_cidr(test_list))
 	return True
 
 # TODO MOVE THIS TO A PY LIB

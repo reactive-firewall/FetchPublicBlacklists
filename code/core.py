@@ -39,10 +39,10 @@ def writeFile(somefile, somedata):
 		with open(theWritePath, 'r+') as f:
 			read_data = f.write(somedata)
 		f.close()
-	except:
+	except Exception:
 		try:
 			f.close()
-		except:
+		except Exception:
 			return False
 		return False
 	return True
@@ -55,10 +55,10 @@ def appendFile(somefile, somedata):
 			f.write(somedata)
 			f.write('\n')
 		f.close()
-	except:
+	except Exception:
 		try:
 			f.close()
-		except:
+		except Exception:
 			return False
 		return False
 	return True
@@ -89,7 +89,7 @@ def extractConfigItem(someSection='URL Sources', theInputKey=None, thePath='/etc
 	try:
 		config.read(thePath)
 		return config.get(someSection, theInputKey)
-	except:
+	except Exception:
 		return None
 	return None
 
@@ -99,7 +99,7 @@ def extractConfigBool(someSection='Options', theInputKey=None, thePath='/etc/fet
 	try:
 		config.read(thePath)
 		return config.getbloolean(someSection, theInputKey)
-	except:
+	except Exception:
 		return False
 	return False
 
@@ -109,7 +109,7 @@ def hasConfigItem(someSection='Options', theInputKey=None, thePath='/etc/fetch_b
 	try:
 		config.read(thePath)
 		return config.has_option(someSection, theInputKey)
-	except:
+	except Exception:
 		return False
 	return False
 
@@ -137,7 +137,7 @@ def compactList(list, intern_func=None):
 
 def printFlatIPBlacklistFile(manyIP):
 	for ip in manyIP:
-		print str(ip)
+		print(str(ip))
 	return None
 
 def writeFlatIPBlacklistFile(manyIP, denyFile):
@@ -157,7 +157,7 @@ def generateIPDenyHostEntry(someIP, someService='ALL'):
 	return theResult
 
 def printIPDenyHostEntry(someIP, someService='ALL'):
-	print generateIPDenyHostEntry(someIP, someService)
+	print(str(generateIPDenyHostEntry(someIP, someService)))
 	return None
 
 def generateIPDenyHostFile(manyIP):
@@ -166,7 +166,7 @@ def generateIPDenyHostFile(manyIP):
 	
 def printIPDenyHostFile(manyIP, someService='ALL'):
 	for ip in manyIP:
-		print generateIPDenyHostEntry(ip, someService)
+		print(str(generateIPDenyHostEntry(ip, someService)))
 	return None
 
 def writeIPDenyHostFile(manyIP, someService='ALL', denyFile='/etc/hosts.deny'):
@@ -176,7 +176,7 @@ def writeIPDenyHostFile(manyIP, someService='ALL', denyFile='/etc/hosts.deny'):
 
 def printSnortIPBlacklistFile(manyIP):
 	for ip in manyIP:
-		print str(ip)
+		print(str(ip))
 	return None
 
 def writeSnortIPBlacklistFile(manyIP, denyFile='/etc/snort/rules/black_list.rules'):
@@ -205,7 +205,7 @@ def generateIPDenyNginxEntry(someIP, someLocation='/'):
 	return theResult
 
 def printIPDenyNginxEntry(someIP, someLocation='/'):
-	print generateIPDenyNginxEntry(someIP, someLocation)
+	print(str(generateIPDenyNginxEntry(someIP, someLocation)))
 	return None
 
 # EXPERIMENTAL
@@ -216,7 +216,7 @@ def printNginxIPBlacklistFile(manyIP, someLocation='/'):
 	for ip in manyIP:
 		theNginxResult += generateIPDenyNginxEntryLine(ip)
 	theNginxResult += str('\n} ')
-	print theNginxResult
+	print(str(theNginxResult))
 	return None
 
 # EXPERIMENTAL
@@ -241,7 +241,7 @@ def generateIPTablesDenyEntry(someIP, someChain='INPUT', someTarget='DROP'):
 	return theResult
 
 def printIPTablesDenyEntry(someIP, someChain='INPUT', someTarget='DROP'):
-	print generateIPTablesDenyEntry(someIP, someChain, someTarget)
+	print(str(generateIPTablesDenyEntry(someIP, someChain, someTarget)))
 	return None
 
 def generateIPTablesDenyFile(manyIP):
@@ -250,15 +250,15 @@ def generateIPTablesDenyFile(manyIP):
 
 def printIPTablesDenyFile(manyIP, someChain='INPUT', someTarget='DROP', printHeaders=False):
 	if printHeaders:
-		print '*filter\n'
-		print ':'
-		print str(someChain)
-		print ' - [0:0]'
+		print(str('*filter\n'))
+		print(str(':'))
+		print(str(someChain))
+		print(str(' - [0:0]'))
 	for ip in manyIP:
-		print generateIPTablesDenyEntry(ip, someChain, someTarget)
+		print(str( generateIPTablesDenyEntry(ip, someChain, someTarget)))
 	if printHeaders:
-		print 'COMMIT'
-		print ''
+		print(str('COMMIT'))
+		print(str(''))
 	return None
 
 def writeIPTablesDenyFile(manyIP, denyFile='/etc/blacklist.rules', someChain='INPUT', someTarget="DROP", printHeaders=False):
@@ -276,12 +276,12 @@ def writeIPTablesDenyFile(manyIP, denyFile='/etc/blacklist.rules', someChain='IN
 				appendFile(denyFile, generateIPTablesDenyEntry(ip, someChain, SomeTarget))
 		if printHeaders:
 			appendFile(denyFile, 'COMMIT')
-			print ''
+			print(str(''))
 		return None
 
 def printEximIPBlacklistFile(manyIP):
 	for ip in manyIP:
-		print str(ip)
+		print(str(ip))
 	return None
 
 def writeEximIPBlacklistFile(manyIP, denyFile='/etc/exim4/local_host_blacklist'):
@@ -298,7 +298,7 @@ def main():
 	args = parse_my_args()
 
 	if args.dry_run is True:
-		print str("dry run")
+		print(str("dry run"))
 
 	if args.config is not None:
 		tmp_dir="/tmp/"
@@ -330,8 +330,8 @@ def main():
 
 		temp_list = None
 		for nURL in temp_url_list:
-			print "now on "
-			print "URL ", nURL
+			print(str("now on "))
+			print(str("URL "), nURL)
 			if temp_list is None:
 				temp_list = handleBlackListURL(nURL, tmp_dir)
 			else:
@@ -339,29 +339,29 @@ def main():
 			temp_list = helpers.compress_ip_list_to_cidr(compactList(temp_list))
 		if args.display is True:
 			if active_hosts_deny is True:
-				print '#'
-				print '# /etc/hosts.deny file'
-				print '#'
+				print(str('#'))
+				print(str('# /etc/hosts.deny file'))
+				print(str('#'))
 				printIPDenyHostFile(temp_list, 'ALL')
-				print ''
+				print(str(''))
 			if active_snort_deny is True:
-				print '#'
-				print '# snort blacklist file'
-				print '#'
+				print(str('#'))
+				print(str('# snort blacklist file'))
+				print(str('#'))
 				printSnortIPBlacklistFile(temp_list)
-				print ''
+				print(str(''))
 			if active_nginx_deny is True:
-				print '#'
-				print '# nginx blacklist file'
-				print '#'
+				print(str('#'))
+				print(str('# nginx blacklist file'))
+				print(str('#'))
 				printNginxIPBlacklistFile(temp_list)
-				print ''
+				prin(str(''))
 			if active_iptables_deny is True:
-				print '#'
-				print '# nginx blacklist file'
-				print '#'
+				print(str('#'))
+				print(str('# nginx blacklist file'))
+				print(str('#'))
 				printIPTablesDenyFile(temp_list)
-				print ''
+				print(str(''))
 		if args.dry_run is False:
 			if active_hosts_deny is True:
 				writeIPDenyHostFile(temp_list, 'ALL', '/etc/hosts.deny')
@@ -371,8 +371,8 @@ def main():
 				writeNginxIPBlacklistFile(temp_list, args.nginx_blacklist)
 			if active_iptables_deny is True:
 				writeIPTablesDenyFile(temp_list, active_iptables_file)
-			print temp_list
+			print(str(temp_list))
 	else:
-		print str("nothing to do")
+		print(str("nothing to do"))
 
 	exit(0)
