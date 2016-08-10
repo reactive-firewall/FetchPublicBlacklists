@@ -24,7 +24,7 @@ matrix:
   - os: linux
     python:  "nightly" # currently points to 3.6-dev
   - os: osx
-    python: "nightly"
+    python:
 
 before_install:
   - if [ $TRAVIS_OS_NAME == osx ] ; then brew search python || true ; fi
