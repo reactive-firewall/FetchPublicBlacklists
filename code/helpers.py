@@ -1,4 +1,4 @@
-#! /usr/bin/env python -c
+#! /usr/bin/env python
 
 # IP string conversion 00000000000000000000000000000000 <-> 0.0.0.0
 

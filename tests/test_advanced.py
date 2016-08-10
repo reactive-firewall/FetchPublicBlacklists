@@ -8,11 +8,10 @@ import unittest
 
 
 class AdvancedTestSuite(unittest.TestCase):
-    """Advanced test cases."""
+	"""Advanced test cases."""
 
-    def test_thoughts(self):
-        assert True
-
+	def test_thoughts(self):
+		assert True
 
 if __name__ == '__main__':
-    unittest.main()
+	unittest.main()
