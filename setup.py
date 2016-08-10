@@ -11,12 +11,12 @@ with open('LICENSE') as f:
 
 setup(
     name='sample',
-    version='0.1.6',
-    description='New package from reactive-firewall',
+    version='0.1.7',
+    description='Fetch Public Blaklists scripts',
     long_description=readme,
     author='reactive-firewall',
     author_email='reactive-firewall@users.noreply.github.com',
-    url='https://github.com/reactive-firewall',
+    url='https://github.com/reactive-firewall/FetchPublicBlacklists.git',
     license=license,
     packages=find_packages(exclude=('tests', 'docs'))
 )

@@ -6,7 +6,10 @@ import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-import helpers
+try:
+        from . import helpers
+except Exception:
+        import helpers
 
 def parseArgs():
 	parser = argparse.ArgumentParser(description='Process some public online blacklists.')
