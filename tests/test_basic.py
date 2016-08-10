@@ -2,6 +2,7 @@
 
 from .context import code
 from code import core
+from code import helpers
 
 import unittest
 

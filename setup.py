@@ -11,7 +11,7 @@ with open('LICENSE') as f:
 
 setup(
     name='sample',
-    version='0.1.7',
+    version='0.1.8',
     description='Fetch Public Blaklists scripts',
     long_description=readme,
     author='reactive-firewall',
