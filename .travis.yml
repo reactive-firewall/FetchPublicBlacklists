@@ -24,12 +24,12 @@ matrix:
   - os: linux
     python:  "nightly" # currently points to 3.6-dev
   - os: osx
-    python: "2.6"
-  - os: osx
-    python: "2.7"
+    python: "nightly"
 
 before_install:
+  - if [ $TRAVIS_OS_NAME == osx ] ; then brew search python || true ; fi
   - if [ $TRAVIS_OS_NAME == osx ] ; then brew install python2.6 python2.7 $INSTALL || true ; fi
+
 install: "make install"
 # command to run tests
 script: make test
