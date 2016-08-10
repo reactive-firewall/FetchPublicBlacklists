@@ -23,8 +23,6 @@ matrix:
     python:  "3.5-dev" # 3.5 development branch
   - os: linux
     python:  "nightly" # currently points to 3.6-dev
-  - os: osx
-    python:
 
 before_install:
   - if [ $TRAVIS_OS_NAME == osx ] ; then brew search python || true ; fi
