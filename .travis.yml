@@ -28,6 +28,8 @@ matrix:
   - os: osx
     python: "2.7"
 
+before_install:
+  - if [ $TRAVIS_OS_NAME == osx ] ; then brew install python2.6 python2.7 $INSTALL || true ; fi
 install: "make install"
 # command to run tests
 script: make test
