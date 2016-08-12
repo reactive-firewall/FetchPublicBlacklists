@@ -147,7 +147,7 @@ def CIDR_to_IPv4s(someCIDR='127.0.0.1/32'):
 	if '/' in someCIDR:
 		somebit = someCIDR.split('/')[1]
 		baseHost = IPv4_to_int(someCIDR.split('/')[0])
-		theResult = range(pow(2, (32 - int(somebit))))
+		theResult = list(range(pow(2, (32 - int(somebit)))))
 		theResult[0] = int_to_IPv4(baseHost)
 		for some_index in range(pow(2, (32 - int(somebit)))):
 			theResult[some_index] = int_to_IPv4(baseHost+some_index)
