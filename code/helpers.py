@@ -210,9 +210,9 @@ def compress_ip_list_to_cidr(someIPList=[DEFAULT_IPV4]):
 				theResult.append(someResult)
 		elif (somelist is None or somelist is []) is False:
 			if theResult is None:
-                                theResult = somelist
-                        else:
-                                theResult.append(somelist[0])
+				theResult = somelist
+			else:
+				theResult.append(somelist[0])
 	return theResult
 
 # not implemented
