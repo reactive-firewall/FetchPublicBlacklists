@@ -24,7 +24,7 @@ def parseArgs():
 	parser.add_argument('--iptables-blacklist', default='/etc/blacklist.rules', help='iptables-save style list of iptables blacklist rules')
 	parser.add_argument('--snort-blacklist', default='/etc/snort/rules/black_list.rules', help='where to put the snort blacklist ip reputation file')
 	parser.add_argument('--display', default=False, action='store_true', help='just print the ip list')
-	parser.add_argument('-V', '--version', action='version', version='%(prog)s 0.2.7')
+	parser.add_argument('-V', '--version', action='version', version='%(prog)s 0.2.8')
 	args = parser.parse_args()
 	return args	
 
