@@ -11,8 +11,8 @@ with open('LICENSE') as f:
 
 setup(
     name='sample',
-    version='0.2.2',
-    description='Fetch Public Blaklists scripts',
+    version='0.2.3',
+    description='Fetch Public Blacklists scripts',
     long_description=readme,
     author='reactive-firewall',
     author_email='reactive-firewall@users.noreply.github.com',

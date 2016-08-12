@@ -108,6 +108,21 @@ def Extract_IPv4_Runs(someIPv4Array, gap=1):
 			x.append(somehost)
 	return x
 
+def Compile_IPv4_Runs(someMixedArray, gap=1):
+	someIPv4Array_tmp = [CIDR_to_IPv4s(someItem) for someItem in someMixedArray]
+	someIPv4Array = []
+	for somenet in someIPv4Array_tmp:
+		for someIPv4host in somenet:
+			someIPv4Array.append(someIPv4host)
+	result_ints = Extract_Runs(IPv4s_to_ints(someIPv4Array), gap)
+	the_result_IPv4_runs = [ints_to_IPv4s(someInt) for someInt in result_ints]
+	the_result = [chunk_IP_array_to_subnets(some_subnet) for some_subnet in the_result_IPv4_runs]
+	x = []
+	for somenet in the_result:
+		for somehost in somenet:
+			x.append(somehost)
+	return x
+
 def get_IP_bit(someIP="00000000000000000000000000000000", some_bit=0):
 	theResult = str( int(someIP[0:some_bit], 2) )
 	return theResult
@@ -125,6 +140,19 @@ def IP_to_CIDR(someIP="00000000000000000000000000000000", some_mask_bit=0):
 
 def IPv4_to_CIDR(someIP=DEFAULT_IPV4, some_mask_bit=0):
 	theResult = IP_to_CIDR(IPv4_to_IP(someIP), some_mask_bit)
+	return theResult
+
+# will assume input 127.0.0.1 = 127.0.0.1/32 and blindly return [127.0.0.1]
+def CIDR_to_IPv4s(someCIDR='127.0.0.1/32'):
+	if '/' in someCIDR:
+		somebit = someCIDR.split('/')[1]
+		baseHost = IPv4_to_int(someCIDR.split('/')[0])
+		theResult = range(pow(2, (32 - int(somebit))))
+		theResult[0] = int_to_IPv4(baseHost)
+		for some_index in range(pow(2, (32 - int(somebit)))):
+			theResult[some_index] = int_to_IPv4(baseHost+some_index)
+	else:
+		theResult=[someCIDR]
 	return theResult
 
 def no_op():
@@ -168,11 +196,11 @@ def getNetAddrforIPv4(startIPv4=DEFAULT_IPV4, net_mask_bit=32):
 	return theResult[0:offset]
 
 def compress_ip_list_to_cidr(someIPList=[DEFAULT_IPV4]):
-	temp_list = Extract_IPv4_Runs(someIPList)
+	temp_list = Compile_IPv4_Runs(someIPList)
 	theResult = None
 	for somelist in temp_list:
 		someResult = None
-		if (somelist is None or somelist is []) is False:
+		if (somelist is None or somelist is [] or len(somelist) is 1) is False:
 			someResult = IPv4_to_CIDR(somelist[0], IPRange_to_mask(somelist[0], somelist[-1]))
 			if someResult is None:
 				someResult = [IPv4_to_CIDR(someItem, 32) for someItem in somelist]
@@ -180,6 +208,11 @@ def compress_ip_list_to_cidr(someIPList=[DEFAULT_IPV4]):
 				theResult = [someResult]
 			else:
 				theResult.append(someResult)
+		elif (somelist is None or somelist is []) is False:
+			if theResult is None:
+                                theResult = somelist
+                        else:
+                                theResult.append(somelist[0])
 	return theResult
 
 # not implemented

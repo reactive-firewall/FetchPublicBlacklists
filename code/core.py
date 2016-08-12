@@ -12,7 +12,7 @@ except Exception:
         import helpers
 
 def parseArgs():
-	parser = argparse.ArgumentParser(description='Process some public online blacklists.')
+	parser = argparse.ArgumentParser(prog='Fetch Publick Blacklists', description='Process some public online blacklists.')
 	parser.add_argument('--dry-run', default=False, action='store_true', help='only show what would be done')
 	parser.add_argument('--config', default='/etc/fetch_blacklist.cfg', help='where is the config file')
 	parser.add_argument('--tmp-dir', default=False, action='store_true', help='where should temp files go')
@@ -24,6 +24,7 @@ def parseArgs():
 	parser.add_argument('--iptables-blacklist', default='/etc/blacklist.rules', help='iptables-save style list of iptables blacklist rules')
 	parser.add_argument('--snort-blacklist', default='/etc/snort/rules/black_list.rules', help='where to put the snort blacklist ip reputation file')
 	parser.add_argument('--display', default=False, action='store_true', help='just print the ip list')
+	parser.add_argument('-V', '--version', action='version', version='%(prog)s 0.2.2')
 	args = parser.parse_args()
 	return args	
 
@@ -301,10 +302,18 @@ def writeEximIPBlacklistFile(manyIP, denyFile='/etc/exim4/local_host_blacklist')
 def main():
 	args = parseArgs()
 	if args.dry_run is True:
-		print(str("dry run"))
+		print(str("Fetch Publick Blacklists: dry run"))
 	if args.config is not None:
 		tmp_dir="/tmp/"
-		temp_url_list = extractConfigItem('URL Sources', 'urls', args.config).split(",")
+		try:
+			temp_url_list = extractConfigItem('URL Sources', 'urls', args.config).split(",")
+		except Exception:
+			if (args.dry_run is False):
+				print(str("Fetch Publick Blacklists: Error: No Configuration File"))
+				exit(3)
+			else:
+				print(str("Fetch Publick Blacklists: Dry Run: Improvising Configuration"))
+				temp_url_list = ['http://www.nothink.org/blacklist/blacklist_ssh_day.txt', 'file:///etc/hosts.deny']
 
 		if hasConfigItem('Options', 'hosts_deny_enabled', args.config) is True:
 			active_hosts_deny = extractConfigBool('Options', 'hosts_deny_enabled', args.config)
