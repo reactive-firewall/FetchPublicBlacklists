@@ -32,13 +32,15 @@ ifeq "$(LOG)" "no"
 	QUIET=@
 endif
 
+PHONY: must_be_root
+
 build:
 	$(QUIET)$(ECHO) "No need to build. Try make -f Makefile install"
 
 init:
 	$(QUIET)$(ECHO) "$@: Done."
 
-install: /usr/local/bin/ /usr/lib/FetchPublicBlacklists/code/
+install: /usr/local/bin/ /usr/lib/FetchPublicBlacklists/code/ must_be_root
 	$(QUITE)$(INSTALL) -d $(INST_OWN) $(INST_OPTS) ./code/core.py /usr/lib/FetchPublicBlacklists/code/
 	$(QUITE) $(WAIT)
 	$(QUITE)$(LINK) /usr/lib/FetchPublicBlacklists/code/core.py /usr/local/bin/FetchPublicBlacklists.py
@@ -73,23 +75,27 @@ clean:
 	$(QUIET)rm -f *.pyc 2>/dev/null
 	$(QUIET)$(ECHO) "$@: Done."
 
-/usr/local/: /usr/
+must_be_root:
+	runner=`whoami` ; \
+	if test $$runner != "root" ; then echo "You are not root." ; exit 1 ; fi
+
+/usr/local/: /usr/ must_be_root
 	$(QUITE)$(INSTALL) $(INST_OWN) $(INST_OPTS) -d "$@"
 	$(QUITE)$(WAIT)
 
-/usr/local/bin/: /usr/local/
+/usr/local/bin/: /usr/local/ must_be_root
 	$(QUITE)$(INSTALL) -d $(INST_OWN) $(INST_OPTS) "$@"
 	$(QUITE)$(WAIT)
 
-/usr/lib/: /usr/
+/usr/lib/: /usr/ must_be_root
 	$(QUITE)$(INSTALL) $(INST_OWN) $(INST_OPTS) -d "$@"
 	$(QUITE)$(WAIT)
 
-/usr/lib/FetchPublicBlacklists/: /usr/lib/
+/usr/lib/FetchPublicBlacklists/: /usr/lib/ must_be_root
 	$(QUITE)$(INSTALL) -d $(INST_OWN) $(INST_OPTS) "$@"
 	$(QUITE)$(WAIT)
 
-/usr/lib/FetchPublicBlacklists/code/: /usr/lib/FetchPublicBlacklists/
+/usr/lib/FetchPublicBlacklists/code/: /usr/lib/FetchPublicBlacklists/ must_be_root
 	$(QUITE)$(INSTALL) -d $(INST_OWN) $(INST_OPTS) "$@"
 	$(QUITE)$(WAIT)
 
