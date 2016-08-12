@@ -24,7 +24,8 @@ matrix:
   - os: linux
     python:  "nightly" # currently points to 3.6-dev
   - os: osx
-    python:  "2.6"
+    osx_image: xcode7.2
+    language: generic
 
 before_install:
   - if [ $TRAVIS_OS_NAME == osx ] ; then brew search python || true ; fi
