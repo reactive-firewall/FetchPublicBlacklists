@@ -10,8 +10,8 @@ with open('LICENSE') as f:
     license = f.read()
 
 setup(
-    name='sample',
-    version='0.2.4',
+    name='Fetch Public Blacklists',
+    version='0.2.5',
     description='Fetch Public Blacklists scripts',
     long_description=readme,
     author='reactive-firewall',
