@@ -18,6 +18,9 @@ ifeq "$(INSTALL)" ""
 	ifeq "$(INST_OPTS)" ""
 		INST_OPTS=-m 755
 	endif
+	ifeq "$(INST_OPTS_CONFIG)" ""
+		INST_OPTS_CONFIG=-m 644
+	endif
 endif
 
 ifeq "$(LINK)" ""
@@ -47,6 +50,7 @@ install: /usr/local/bin/ /usr/lib/FetchPublicBlacklists/code/ must_be_root
 	$(QUITE) $(WAIT)
 	$(QUITE)$(INSTALL) -d $(INST_OWN) $(INST_OPTS) ./code/helpers.py /usr/lib/FetchPublicBlacklists/code/helpers.py
 	$(QUITE)$(INSTALL) -d $(INST_OWN) $(INST_OPTS) ./code/__init__.py /usr/lib/FetchPublicBlacklists/code/__init__.py
+	$(QUITE)$(INSTALL) -d $(INST_OWN) $(INST_OPTS_CONFIG) ./etc/FetchPublicBlacklists.cfg.template /etc/FetchPublicBlacklists.cfg
 	$(QUITE) $(WAIT)
 	$(QUIET)$(ECHO) "$@: Done."
 
@@ -56,6 +60,7 @@ uninstall:
 	$(QUITE)rm -f /usr/lib/FetchPublicBlacklists/code/__init__.py 2>/dev/null || true
 	$(QUITE)rm -f /usr/lib/FetchPublicBlacklists/code/*.pyc 2>/dev/null || true
 	$(QUITE)rm -Rf /usr/lib/FetchPublicBlacklists/code/ 2>/dev/null || true
+	$(QUITE)rm -f /etc/FetchPublicBlacklists.cfg 2>/dev/null || true
 	$(QUITE)unlink /usr/local/bin/FetchPublicBlacklists.py 2>/dev/null || true
 	$(QUITE) $(WAIT)
 	$(QUIET)$(ECHO) "$@: Done."

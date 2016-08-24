@@ -1,0 +1,57 @@
+# Fetch Public Blacklists Configuration
+
+# The main setting is the list of blacklists you wish to download
+# syntax is simple a single comma separated list of fully qualified urls to download and combine into a single blacklist   
+# tested url types include http / https / file
+
+# DISCLAIMER: LISTS PROVIDED ANYWHERE IN THIS FILE ARE NOT OFFICIALLY OR UNOFFICIALLY SUPPORTED BY OR RELATED TO 'Fetch Public Blacklists' IN ANY WAY. PLEASE VERIFY YOU ARE ALLOWED TO USE A PUBLIC BLACKLIST BEFORE DOING SO.
+
+[URL Sources]
+urls = http://www.nothink.org/blacklist/blacklist_ssh_all.txt, http://www.nothink.org/blacklist/blacklist_telnet_year.txt, file:///etc/hosts.deny
+
+# these are EXAMPLES use only one 'url' setting line (NO AFFILIATION)
+
+# check out nothink.org a cool honeypot project (NO AFFILIATION)
+# urls = http://www.nothink.org/blacklist/blacklist_ssh_all.txt, http://www.nothink.org/blacklist/blacklist_telnet_year.txt, http://www.nothink.org/blacklist/blacklist_snmp_year.txt
+
+# checkout www.binarydefense.com (NO AFFILIATION)
+# urls = http://www.binarydefense.com/banlist.txt
+
+# check out the bot-net blacklists by abuse.ch (NO AFFILIATION)
+# urls = https://palevotracker.abuse.ch/blocklists.php?download=ipblocklist, https://zeustracker.abuse.ch/blocklist.php?download=ipblocklist, http://ransomwaretracker.abuse.ch/downloads/RW_IPBL.txt, https://feodotracker.abuse.ch/blocklist/?download=ipblocklist
+
+#checkout malc0de.com (NO AFFILIATION)
+# urls = http://malc0de.com/bl/IP_Blacklist.txt
+
+# checkout Myip.ms (NO AFFILIATION)
+# urls = https://myip.ms/files/blacklist/general/full_blacklist_database.zip
+
+#checkout https://zeltser.com/malicious-ip-blocklists/ for more lists (NO AFFILIATION)
+
+# add your own:
+# urls = http://my.awsome.domain/public_blacklist_path.txt, https://my.awsome.domain/public_blacklist_path.txt, file:///public_blacklist_path.txt
+
+# use a single file
+# urls = file:///etc/hosts.deny
+
+# there are other settings in development not yet documented, so USE AT YOUR OWN RISK
+
+[Options]
+# Hosts.deny options
+hosts_deny_enabled = True
+# Future Options
+#hosts_deny_append = False
+#hosts_deny_prefix = ALL
+# snort ip reputation module options
+snort_blacklist_enabled = False
+#snort_blacklist_file = /etc/snort/rules/blacklist.rules
+# nginx blacklist options
+nginx_blacklist_enabled = False
+#nginx_blacklist_file = /etc/nginx/sites-available/blacklist.conf
+# splunk inputs.conf options
+splunk_blacklist_enabled = False
+#splunk_blacklist_file = /opt/splunk/etc/system/local/inputs.conf
+iptables_blacklist_enabled = False
+#iptables_blacklist_file = /etc/iptables_blacklist.rules
+
+

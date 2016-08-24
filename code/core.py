@@ -18,15 +18,17 @@ def parseArgs():
 	parser.add_argument('--tmp-dir', default=False, action='store_true', help='where should temp files go')
 	parser.add_argument('--hosts-deny', default=False, action='store_true', help='generate a host.deny file from the ip list')
 	parser.add_argument('--snort-deny', default=False, action='store_true', help='enable snort blacklist ip reputation file')
+	parser.add_argument('--snort-blacklist', default='/etc/snort/rules/black_list.rules', help='where to put the snort blacklist ip reputation file')
 	parser.add_argument('--nginx-deny', default=False, action='store_true', help='enable EXPERIMENTAL nginx blacklist ip file')
-	parser.add_argument('--splunk-deny', default=False, action='store_true', help='enable splunk blacklist ip file')
+	parser.add_argument('--nginx-blacklist', default='/etc/nginx/conf-available/blacklist.conf', help='where to put the EXPERIMENTAL nginx ip blacklist file')
+	parser.add_argument('--splunk-deny', default=False, action='store_true', help='enable EXPERIMENTAL splunk blacklist ip file')
+	parser.add_argument('--splunk-blacklist', default='/opt/splunk/etc/system/local/inputs.conf', help='where to put the EXPERIMENTAL splunk blacklist file')
 	parser.add_argument('--iptables-deny', default=False, action='store_true', help='enable a list of iptables blacklist rules')
 	parser.add_argument('--iptables-blacklist', default='/etc/blacklist.rules', help='iptables-save style list of iptables blacklist rules')
-	parser.add_argument('--snort-blacklist', default='/etc/snort/rules/black_list.rules', help='where to put the snort blacklist ip reputation file')
 	parser.add_argument('--display', default=False, action='store_true', help='just print the ip list')
-	parser.add_argument('-V', '--version', action='version', version='%(prog)s 0.2.8')
+	parser.add_argument('-V', '--version', action='version', version='%(prog)s 0.2.9')
 	args = parser.parse_args()
-	return args	
+	return args
 
 def readFile(somefile):
 	import os
@@ -194,6 +196,28 @@ def writeSnortIPBlacklistFile(manyIP, denyFile='/etc/snort/rules/black_list.rule
 			appendFile(denyFile, str(ip))
 	return None
 
+
+def generateIPDenySplunkEntry(someIP):
+	theResult += str('acceptFrom = !' + str(someIP))
+	theResult += str('\n')
+	return theResult
+
+def printIPDenySplunkEntry(someIP):
+	print(str(generateIPDenySplunkEntry(someIP)))
+	return None
+
+def printSplunkIPBlacklistFile(manyIP):
+	for ip in manyIP:
+		print(str(generateIPDenySplunkEntry(ip)))
+	return None
+
+# EXPERIMENTAL
+def writeSPlunkIPBlacklistFile(manyIP, denyFile='/opt/splunk/etc/system/local/inputs.conf'):
+	for ip in manyIP:
+		appendFile(denyFile, str(generateIPDenySplunkEntry(ip)))
+	return None
+
+
 def generateIPDenyNginxEntryLine(someIP):
 	theResult += str('deny ')
 	theResult += someIP
@@ -322,13 +346,30 @@ def main():
 
 		if hasConfigItem('Options', 'snort_deny_enabled', args.config) is True:
 			active_snort_deny = extractConfigBool('Options', 'snort_deny_enabled', args.config)
+			if hasConfigItem('Options', 'snort_deny_file', args.config) is True:
+				active_snort_file = extractConfigBool('Options', 'snort_deny_file', args.config)
+			else:
+				active_snort_file = args.snort_blacklist
 		else:
 			active_snort_deny = args.snort_deny
 
 		if hasConfigItem('Options', 'nginx_deny_enabled', args.config) is True:
 			active_nginx_deny = extractConfigBool('Options', 'nginx_deny_enabled', args.config)
+			if hasConfigItem('Options', 'nginx_deny_file', args.config) is True:
+				active_nginx_file = extractConfigBool('Options', 'nginx_deny_file', args.config)
+			else:
+				active_nginx_file = args.nginx_blacklist
 		else:
 			active_nginx_deny = args.nginx_deny
+
+		if hasConfigItem('Options', 'splunk_deny_enabled', args.config) is True:
+			active_splunk_deny = extractConfigBool('Options', 'splunk_deny_enabled', args.config)
+			if hasConfigItem('Options', 'splunk_splunk_file', args.config) is True:
+				active_splunk_file = extractConfigBool('Options', 'splunk_deny_file', args.config)
+			else:
+				active_splunk_file = args.splunk_blacklist
+		else:
+			active_splunk_deny = args.splunk_deny
 
 		if hasConfigItem('Options', 'iptables_deny_enabled', args.config) is True:
 			active_iptables_deny = extractConfigBool('Options', 'iptables_deny_enabled', args.config)
@@ -341,8 +382,9 @@ def main():
 
 		temp_list = None
 		for nURL in temp_url_list:
-			print(str("now on "))
-			print(str("URL "), nURL)
+			if args.display is True:
+				print(str("now on "))
+				print(str("URL "), nURL)
 			if temp_list is None:
 				temp_list = handleBlackListURL(nURL, tmp_dir)
 			else:
@@ -367,6 +409,12 @@ def main():
 				print(str('#'))
 				printNginxIPBlacklistFile(temp_list)
 				prin(str(''))
+			if active_splunk_deny is True:
+				print(str('#'))
+				print(str('# Splunk blacklist file'))
+				print(str('#'))
+				printSplunkIPBlacklistFile(temp_list)
+				prin(str(''))
 			if active_iptables_deny is True:
 				print(str('#'))
 				print(str('# nginx blacklist file'))
@@ -377,9 +425,11 @@ def main():
 			if active_hosts_deny is True:
 				writeIPDenyHostFile(temp_list, 'ALL', '/etc/hosts.deny')
 			if active_snort_deny is True:
-				writeSnortIPBlacklistFile(temp_list, args.snort_blacklist)
+				writeSnortIPBlacklistFile(temp_list, active_snort_file)
 			if active_nginx_deny is True:
-				writeNginxIPBlacklistFile(temp_list, args.nginx_blacklist)
+				writeNginxIPBlacklistFile(temp_list, active_nginx_file)
+			if active_splunk_deny is True:
+				writeSplunkIPBlacklistFile(temp_list, active_splunk_file)
 			if active_iptables_deny is True:
 				writeIPTablesDenyFile(temp_list, active_iptables_file)
 			print(str(temp_list))
