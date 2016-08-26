@@ -72,7 +72,10 @@ def appendFile(somefile, somedata):
 
 def getBlackList(someURL, outFile):
 	import urllib
-	tempfile = urllib.FancyURLopener()
+	try:
+		tempfile = urllib.FancyURLopener()
+	except Exception:
+		tempfile = urllib.request.FancyURLopener()
 	tempfile.retrieve(someURL, outFile)
 	return True
 
