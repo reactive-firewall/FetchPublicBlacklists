@@ -75,6 +75,7 @@ def getBlackList(someURL, outFile):
 	try:
 		tempfile = urllib.FancyURLopener()
 	except Exception:
+		import urllib.request
 		tempfile = urllib.request.FancyURLopener()
 	tempfile.retrieve(someURL, outFile)
 	return True
