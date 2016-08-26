@@ -91,8 +91,8 @@ def extractMacAddr(theInputStr):
 	return extractRegexPattern(theInputStr, "(?:(?:[[:print:]]*){0,1}(?P<Mac>(?:(?:[0-9a-fA-F]{1,2}[\:]{1}){5}(?:[0-9a-fA-F]{1,2}){1}){1})+(?:[[:print:]]*){0,1})+")
 
 def extractConfigItem(someSection='URL Sources', theInputKey=None, thePath='/etc/fetch_blacklist.cfg'):
-	import ConfigParser
-	config = ConfigParser.ConfigParser()
+	import configparser
+	config = configparser.ConfigParser()
 	try:
 		config.read(thePath)
 		return config.get(someSection, theInputKey)
@@ -101,8 +101,8 @@ def extractConfigItem(someSection='URL Sources', theInputKey=None, thePath='/etc
 	return None
 
 def extractConfigBool(someSection='Options', theInputKey=None, thePath='/etc/fetch_blacklist.cfg'):
-	import ConfigParser
-	config = ConfigParser.ConfigParser()
+	import configparser
+	config = configparser.ConfigParser()
 	try:
 		config.read(thePath)
 		return config.getbloolean(someSection, theInputKey)
@@ -111,8 +111,8 @@ def extractConfigBool(someSection='Options', theInputKey=None, thePath='/etc/fet
 	return False
 
 def hasConfigItem(someSection='Options', theInputKey=None, thePath='/etc/fetch_blacklist.cfg'):
-	import ConfigParser
-	config = ConfigParser.ConfigParser()
+	import configparser
+	config = configparser.ConfigParser()
 	try:
 		config.read(thePath)
 		return config.has_option(someSection, theInputKey)
