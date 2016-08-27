@@ -30,6 +30,7 @@ matrix:
 before_install:
   - if [ $TRAVIS_OS_NAME == osx ] ; then brew search python || true ; fi
   - if [ $TRAVIS_OS_NAME == osx ] ; then brew install python2.6 python2.7 $INSTALL || true ; fi
+  - if [ $TRAVIS_OS_NAME == osx ] ; then mkdir -p /etc/ 2>/dev/null || true ; wait ; echo "" >> /etc/hosts.deny 2>/dev/null || true ; fi
 
 install: "make init"
 # command to run tests
