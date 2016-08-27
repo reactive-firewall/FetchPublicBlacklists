@@ -26,7 +26,7 @@ def parseArgs():
 	parser.add_argument('--iptables-deny', default=False, action='store_true', help='enable a list of iptables blacklist rules')
 	parser.add_argument('--iptables-blacklist', default='/etc/blacklist.rules', help='iptables-save style list of iptables blacklist rules')
 	parser.add_argument('--display', default=False, action='store_true', help='just print the ip list')
-	parser.add_argument('-V', '--version', action='version', version='%(prog)s 0.3.1')
+	parser.add_argument('-V', '--version', action='version', version='%(prog)s 0.3.2')
 	args = parser.parse_args()
 	return args
 
@@ -350,7 +350,7 @@ def main():
 				exit(3)
 			else:
 				print(str("Fetch Publick Blacklists: Dry Run: Improvising Configuration"))
-				temp_url_list = ['http://www.nothink.org/blacklist/blacklist_ssh_day.txt', 'file:///etc/hosts.deny']
+				temp_url_list = ['http://www.nothink.org/blacklist/blacklist_ssh_day.txt']
 
 		if hasConfigItem('Options', 'hosts_deny_enabled', args.config) is True:
 			active_hosts_deny = extractConfigBool('Options', 'hosts_deny_enabled', args.config)
