@@ -12,7 +12,7 @@ except Exception:
         import helpers
 
 def parseArgs():
-	parser = argparse.ArgumentParser(prog='Fetch Publick Blacklists', description='Process some public online blacklists.')
+	parser = argparse.ArgumentParser(prog='Fetch Public Blacklists', description='Process some public online blacklists.')
 	parser.add_argument('--dry-run', default=False, action='store_true', help='only show what would be done')
 	parser.add_argument('--config', default='/etc/fetch_blacklist.cfg', help='where is the config file')
 	parser.add_argument('--tmp-dir', default=False, action='store_true', help='where should temp files go')
@@ -26,7 +26,7 @@ def parseArgs():
 	parser.add_argument('--iptables-deny', default=False, action='store_true', help='enable a list of iptables blacklist rules')
 	parser.add_argument('--iptables-blacklist', default='/etc/blacklist.rules', help='iptables-save style list of iptables blacklist rules')
 	parser.add_argument('--display', default=False, action='store_true', help='just print the ip list')
-	parser.add_argument('-V', '--version', action='version', version='%(prog)s 0.3.0')
+	parser.add_argument('-V', '--version', action='version', version='%(prog)s 0.3.1')
 	args = parser.parse_args()
 	return args
 
