@@ -3,8 +3,11 @@
 # The main setting is the list of blacklists you wish to download
 # syntax is simple a single comma separated list of fully qualified urls to download and combine into a single blacklist   
 # tested url types include http / https / file
+# Caveat: it may be posible to use others like s3:// and ftps:// but these are not well tested
 
-# DISCLAIMER: LISTS PROVIDED ANYWHERE IN THIS FILE ARE NOT OFFICIALLY OR UNOFFICIALLY SUPPORTED BY OR RELATED TO 'Fetch Public Blacklists' IN ANY WAY. PLEASE VERIFY YOU ARE ALLOWED TO USE A PUBLIC BLACKLIST BEFORE DOING SO.
+# DISCLAIMER: LISTS PROVIDED ANYWHERE IN THIS FILE ARE NOT OFFICIALLY OR UNOFFICIALLY SUPPORTED BY OR RELATED TO 'Fetch Public Blacklists' IN ANY WAY. PLEASE VERIFY YOU ARE ALLOWED TO USE EACH PUBLIC BLACKLIST BEFORE JUST DOING SO.
+
+# MARK - Sources
 
 [URL Sources]
 urls = http://www.nothink.org/blacklist/blacklist_ssh_all.txt, http://www.nothink.org/blacklist/blacklist_telnet_year.txt, file:///etc/hosts.deny
@@ -34,24 +37,53 @@ urls = http://www.nothink.org/blacklist/blacklist_ssh_all.txt, http://www.nothin
 # use a single file
 # urls = file:///etc/hosts.deny
 
-# there are other settings in development not yet documented, so USE AT YOUR OWN RISK
+# use blacklist log files to create an adaptive blacklist from log files (COMPLEX EXAMPLE)
+# urls = file:///var/log/firewall/blocked.log, file:///var/log/snort/breaches.log, file:///var/log/denyhosts/blocked.log
+
+# Caveat: remember only ONE 'urls =' will be parsed so if you copy-paste-modify the examples be sure only to leave the first 'urls =' keyword
+
+
+# Mark - Options
 
 [Options]
+# the basic syntax is SERVICENAME'_deny_enabled = '[ True | False ]
+# for example: hosts.deny blacklist mode is enabled by:
+# hosts_deny_enabled = True
+#
 # Hosts.deny options
 hosts_deny_enabled = True
-# Future Options
 #hosts_deny_append = False
-#hosts_deny_prefix = ALL
+
+
 # snort ip reputation module options
 snort_blacklist_enabled = False
-#snort_blacklist_file = /etc/snort/rules/blacklist.rules
+#snort_deny_file = /etc/snort/rules/blacklist.rules
+
 # nginx blacklist options
 nginx_blacklist_enabled = False
-#nginx_blacklist_file = /etc/nginx/sites-available/blacklist.conf
+#nginx_deny_file = /etc/nginx/sites-available/blacklist.conf
+
 # splunk inputs.conf options
 splunk_blacklist_enabled = False
-#splunk_blacklist_file = /opt/splunk/etc/system/local/inputs.conf
+#splunk_deny_file = /opt/splunk/etc/system/local/inputs.conf
+
+# exim4
+exim4_blacklist_enabled = False
+#exim4_blacklist_file = /etc/exim4/local_hosts_blacklist
+
+# firewalls
+
+# iptables
 iptables_blacklist_enabled = False
 #iptables_blacklist_file = /etc/iptables_blacklist.rules
 
+# pf
+pf_blacklist_enabled = False
+#pf_blacklist_file = /etc/blacklist_pf.conf
 
+# Caveat: there are other settings in development not yet documented, so USE AT YOUR OWN RISK
+
+# Future Options
+#hosts_deny_prefix = ALL
+#iptables_chain=INPUT
+#iptables_TARGET=DROP

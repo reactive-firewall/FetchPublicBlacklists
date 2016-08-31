@@ -11,7 +11,7 @@ with open('LICENSE') as f:
 
 setup(
     name='Fetch Public Blacklists',
-    version='0.3.2',
+    version='0.3.3',
     description='Fetch Public Blacklists scripts',
     long_description=readme,
     author='reactive-firewall',

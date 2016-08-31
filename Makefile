@@ -44,13 +44,13 @@ init:
 	$(QUIET)$(ECHO) "$@: Done."
 
 install: /usr/local/bin/ /usr/lib/FetchPublicBlacklists/code/ must_be_root
-	$(QUITE)$(INSTALL) -d $(INST_OWN) $(INST_OPTS) ./code/core.py /usr/lib/FetchPublicBlacklists/code/
+	$(QUITE)$(INSTALL) $(INST_OWN) $(INST_OPTS) ./code/core.py /usr/lib/FetchPublicBlacklists/code/core.py
 	$(QUITE) $(WAIT)
 	$(QUITE)$(LINK) /usr/lib/FetchPublicBlacklists/code/core.py /usr/local/bin/FetchPublicBlacklists.py
 	$(QUITE) $(WAIT)
-	$(QUITE)$(INSTALL) -d $(INST_OWN) $(INST_OPTS) ./code/helpers.py /usr/lib/FetchPublicBlacklists/code/helpers.py
-	$(QUITE)$(INSTALL) -d $(INST_OWN) $(INST_OPTS) ./code/__init__.py /usr/lib/FetchPublicBlacklists/code/__init__.py
-	$(QUITE)$(INSTALL) -d $(INST_OWN) $(INST_OPTS_CONFIG) ./etc/FetchPublicBlacklists.cfg.template /etc/FetchPublicBlacklists.cfg
+	$(QUITE)$(INSTALL) $(INST_OWN) $(INST_OPTS) ./code/helpers.py /usr/lib/FetchPublicBlacklists/code/helpers.py
+	$(QUITE)$(INSTALL) $(INST_OWN) $(INST_OPTS) ./code/__init__.py /usr/lib/FetchPublicBlacklists/code/__init__.py
+	$(QUITE)$(INSTALL) $(INST_OWN) $(INST_OPTS_CONFIG) ./etc/FetchPublicBlacklists.cfg.template /etc/FetchPublicBlacklists.cfg
 	$(QUITE) $(WAIT)
 	$(QUIET)$(ECHO) "$@: Done."
 
