@@ -81,10 +81,7 @@ optional arguments:
 Simple Example
 -------
 Updates hosts.deny file with any configured URLs
-
-.. code-block:: bash
-	:linenos:
-	
+::
 	export PATH=/usr/local/bin/:${PATH} ;
 	FetchPublicBlacklists.py --hosts-deny
 
@@ -97,15 +94,12 @@ Updates hosts.deny file with any logged IPs in the log file /var/log/network_att
 Configuration
 
 .. code-block:: 
-	:linenos:
-	
+::	
 	[URL Sources]
 	urls = file:///etc/hosts.deny, file:///var/log/network_attackers_custom_blacklist.log
 
 Usage
-.. code-block:: bash
-	:linenos:
-	
+::	
 	export PATH=/usr/local/bin/:${PATH} ;
 	FetchPublicBlacklists.py --hosts-deny --iptables-deny
 
