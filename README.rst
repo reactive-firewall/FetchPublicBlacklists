@@ -86,14 +86,11 @@ Updates hosts.deny file with any configured URLs
 	FetchPublicBlacklists.py --hosts-deny
 
 
-
 Custom Example
 --------------
 Updates hosts.deny file with any logged IPs in the log file /var/log/network_attackers_custom_blacklist.log
 
 Configuration
-
-.. code-block:: 
 ::	
 	[URL Sources]
 	urls = file:///etc/hosts.deny, file:///var/log/network_attackers_custom_blacklist.log
