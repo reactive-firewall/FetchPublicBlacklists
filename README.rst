@@ -98,7 +98,7 @@ Configuration
 Usage
 ::	
 	export PATH=/usr/local/bin/:${PATH} ;
-	FetchPublicBlacklists.py --hosts-deny --iptables-deny
+	FetchPublicBlacklists.py --hosts-deny
 
 Caveat: the log file needs to already exist.
 
