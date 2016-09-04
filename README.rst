@@ -50,8 +50,6 @@ Fetch Public Blacklists [-h] [--dry-run] [--config CONFIG] [--tmp-dir]
                                [--exim4-blacklist EXIM4_BLACKLIST] [--display]
                                [-V]
 
-Process some public online blacklists.
-
 optional arguments:
   -h, --help            show this help message and exit
   --dry-run             only show what would be done
@@ -83,9 +81,10 @@ optional arguments:
 Simple Example
 -------
 Updates hosts.deny file with any configured URLs
-.. code-block:: bash
-   :linenos:
 
+.. code-block:: bash
+	:linenos:
+	
 	export PATH=/usr/local/bin/:${PATH} ;
 	FetchPublicBlacklists.py --hosts-deny
 
@@ -96,16 +95,17 @@ Custom Example
 Updates hosts.deny file with any logged IPs in the log file /var/log/network_attackers_custom_blacklist.log
 
 Configuration
-.. code-block:: plain
-   :linenos:
 
+.. code-block:: 
+	:linenos:
+	
 	[URL Sources]
 	urls = file:///etc/hosts.deny, file:///var/log/network_attackers_custom_blacklist.log
 
 Usage
 .. code-block:: bash
-   :linenos:
-
+	:linenos:
+	
 	export PATH=/usr/local/bin/:${PATH} ;
 	FetchPublicBlacklists.py --hosts-deny --iptables-deny
 
