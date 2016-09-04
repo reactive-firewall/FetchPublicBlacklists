@@ -91,7 +91,7 @@ Custom Example
 Updates hosts.deny file with any logged IPs in the log file /var/log/network_attackers_custom_blacklist.log
 
 Configuration
-::	
+::
 	[URL Sources]
 	urls = file:///etc/hosts.deny, file:///var/log/network_attackers_custom_blacklist.log
 
