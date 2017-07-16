@@ -1,13 +1,14 @@
 Fetch Public Blacklists Tool
 ============================
-.. image:: https://badge.fury.io/gh/reactive-firewall%2FFetchPublicBlacklists.svg
+.. image:: https://img.shields.io/badge/version-0.3.3-brightgreen.svg?style=flat-round
 
 A tool to fetch public blacklists for other tools.
 
 .. image:: https://travis-ci.org/reactive-firewall/FetchPublicBlacklists.svg?branch=master
     :target: https://travis-ci.org/reactive-firewall/FetchPublicBlacklists
 
-.. image:: https://reposs.herokuapp.com/?path=/reactive-firewall/FetchPublicBlacklists
+.. image:: https://codecov.io/gh/reactive-firewall/FetchPublicBlacklists/branch/master/graph/badge.svg
+    :target: https://codecov.io/gh/reactive-firewall/FetchPublicBlacklists/branch/master/
 
 10 minute Quick Start
 ===================== 

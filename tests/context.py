@@ -12,7 +12,7 @@ except Exception as ImportErr:
 	print(str((ImportErr.args)))
 	ImportErr = None
 	del ImportErr
-	raise ImportError(u'FetchPublicBlacklists Failed to Import')
+	raise ImportError("FetchPublicBlacklists Failed to Import")
 
 
 try:
@@ -22,6 +22,6 @@ try:
 except Exception as importErr:
 	importErr = None
 	del importErr
-	raise ImportError(u'Test module failed to load FetchPublicBlacklists for test.')
+	raise ImportError("Test module failed to load FetchPublicBlacklists for test.")
 	exit(0)
 
