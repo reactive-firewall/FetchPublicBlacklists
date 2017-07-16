@@ -102,10 +102,7 @@ before_install:
   - travis_retry python3 -m pip install codecov || python3 -m pip install codecov || true ;
   - travis_retry python3 -m pip install -r requirements.txt || python3 -m pip install -r requirements.txt || true ;
 
-install:
-	- make init
-	- make install || true ;
-	- make clean || exit $? ;
+install: "make init"
 
 script:
   - make clean || exit $? ;
