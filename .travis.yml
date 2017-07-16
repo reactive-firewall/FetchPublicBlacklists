@@ -102,17 +102,19 @@ before_install:
   - travis_retry python3 -m pip install codecov || python3 -m pip install codecov || true ;
   - travis_retry python3 -m pip install -r requirements.txt || python3 -m pip install -r requirements.txt || true ;
 
-install: "make install"
+install:
+	- make init
+	- make install || true ;
+	- make clean || exit $? ;
 
 script:
-  - make clean ;
-  - echo "$TRAVIS_PYTHON_VERSION" || true
+  - make clean || exit $? ;
   - if [ $TRAVIS_OS_NAME == osx ] ; then echo "SKIP make test" ; else make test || exit $? ; fi
-  - if [ $TRAVIS_OS_NAME == osx ] || [ $TRAVIS_PYTHON_VERSION == 3.2 ]; then echo "SKIP codecov" ; else codecov || exit $? ; fi
-  - TRAVIS_PYTHON_VERSION
+  - if [ $TRAVIS_OS_NAME == osx ] || [ $TRAVIS_PYTHON_VERSION == 3.2 ] ; then echo "SKIP codecov" ; else codecov || exit $? ; fi
   - make clean || exit $? ; 
   - make test-tox || exit $? ;
-  - make clean ;
+  - if [ $TRAVIS_PYTHON_VERSION == 3.2 ] ; then echo "SKIP tox" ; else make test-tox || exit $? ; fi
+  - make clean
 
 after_success:
   - if [ $TRAVIS_OS_NAME == osx ] ; then echo "SKIP codecov" ; else codecov || true ; fi
