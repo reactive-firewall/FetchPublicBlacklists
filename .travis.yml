@@ -114,5 +114,5 @@ script:
   - make clean
 
 after_success:
-  - if [ $TRAVIS_OS_NAME == osx ] ; then echo "SKIP codecov" ; else codecov || true ; fi
+  - if [ $TRAVIS_OS_NAME == osx ] || [ $TRAVIS_PYTHON_VERSION == 3.2 ] ; then echo "SKIP codecov" ; else codecov || exit $? ; fi
 
