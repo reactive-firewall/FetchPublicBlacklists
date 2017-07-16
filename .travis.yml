@@ -108,7 +108,7 @@ script:
   - make clean ;
   - echo "$TRAVIS_PYTHON_VERSION" || true
   - if [ $TRAVIS_OS_NAME == osx ] ; then echo "SKIP make test" ; else make test || exit $? ; fi
-  - if [ $TRAVIS_OS_NAME == osx ] && [ $TRAVIS_PYTHON_VERSION != 3.2 ]; then echo "SKIP codecov" ; else codecov || exit $? ; fi
+  - if [ $TRAVIS_OS_NAME == osx ] || [ $TRAVIS_PYTHON_VERSION == 3.2 ]; then echo "SKIP codecov" ; else codecov || exit $? ; fi
   - TRAVIS_PYTHON_VERSION
   - make clean || exit $? ; 
   - make test-tox || exit $? ;
