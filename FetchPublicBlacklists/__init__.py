@@ -18,10 +18,10 @@ except Exception:
         import FetchPublicBlacklists
 
 
-if __name__ in u'__main__':
+if __name__ in '__main__':
     if FetchPublicBlacklists.__name__ is None:
-        raise ImportError(str(u'Failed to import FetchPublicBlacklists'))
+        raise ImportError(str("Failed to import FetchPublicBlacklists"))
     if helpers.__name__ is None:
-        raise ImportError(str(u'Failed to import helpers'))
+        raise ImportError(str("Failed to import helpers"))
     exit(0)
 
