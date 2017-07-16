@@ -1,0 +1,24 @@
+coverage:
+  status:
+    project:
+      default: off
+      piaplib:
+        target: 25%
+        flags: FetchPublicBlacklists
+        base: auto
+        paths:
+          - FetchPublicBlacklists/
+      tests:
+        target: 50%
+        flags: tests
+        paths:
+          - tests
+
+flags:
+  FetchPublicBlacklists:
+    paths:
+      - FetchPublicBlacklists/
+  tests:
+    paths:
+      - tests
+    joined: false

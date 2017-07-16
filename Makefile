@@ -43,46 +43,66 @@ build:
 init:
 	$(QUIET)$(ECHO) "$@: Done."
 
-install: /usr/local/bin/ /usr/lib/FetchPublicBlacklists/code/ must_be_root
-	$(QUITE)$(INSTALL) $(INST_OWN) $(INST_OPTS) ./code/core.py /usr/lib/FetchPublicBlacklists/code/core.py
-	$(QUITE) $(WAIT)
-	$(QUITE)$(LINK) /usr/lib/FetchPublicBlacklists/code/core.py /usr/local/bin/FetchPublicBlacklists.py
-	$(QUITE) $(WAIT)
-	$(QUITE)$(INSTALL) $(INST_OWN) $(INST_OPTS) ./code/helpers.py /usr/lib/FetchPublicBlacklists/code/helpers.py
-	$(QUITE)$(INSTALL) $(INST_OWN) $(INST_OPTS) ./code/__init__.py /usr/lib/FetchPublicBlacklists/code/__init__.py
+install: must_be_root
+	$(QUIET)python3 -m pip install "git+https://github.com/reactive-firewall/FetchPublicBlacklists.git#egg=FetchPublicBlacklists"
+	$(QUIET)curl -fsSL --tlsv1.2 --url https://github.com/reactive-firewall/FetchPublicBlacklists.git -o ./etc/FetchPublicBlacklists.cfg.template 2>/dev/null || true
+	$(QUITE)$(WAIT)
 	$(QUITE)$(INSTALL) $(INST_OWN) $(INST_OPTS_CONFIG) ./etc/FetchPublicBlacklists.cfg.template /etc/FetchPublicBlacklists.cfg
-	$(QUITE) $(WAIT)
 	$(QUIET)$(ECHO) "$@: Done."
 
 uninstall:
-	$(QUITE)rm -f /usr/lib/FetchPublicBlacklists/code/core.py 2>/dev/null || true
-	$(QUITE)rm -f /usr/lib/FetchPublicBlacklists/code/helpers.py 2>/dev/null || true
-	$(QUITE)rm -f /usr/lib/FetchPublicBlacklists/code/__init__.py 2>/dev/null || true
-	$(QUITE)rm -f /usr/lib/FetchPublicBlacklists/code/*.pyc 2>/dev/null || true
-	$(QUITE)rm -Rf /usr/lib/FetchPublicBlacklists/code/ 2>/dev/null || true
+	$(QUITE)$(QUIET)python3 -m pip uninstall FetchPublicBlacklists || true
 	$(QUITE)rm -f /etc/FetchPublicBlacklists.cfg 2>/dev/null || true
-	$(QUITE)unlink /usr/local/bin/FetchPublicBlacklists.py 2>/dev/null || true
-	$(QUITE) $(WAIT)
+	$(QUITE)$(WAIT)
 	$(QUIET)$(ECHO) "$@: Done."
 
 purge: clean uninstall
+	$(QUIET)python3 -m pip uninstall FetchPublicBlacklists && python -m pip uninstall FetchPublicBlacklists 2>/dev/null || true
 	$(QUIET)$(ECHO) "$@: Done."
 
-test:
-	$(QUIET)python -m unittest tests.test_basic
-	$(QUIET)python -m unittest tests.test_advanced
+test: cleanup
+	$(QUIET)coverage run -p --source=FetchPublicBlacklists -m unittest discover --verbose -s ./tests -t ./ || python3 -m unittest discover --verbose -s ./tests -t ./ || python -m unittest discover --verbose -s ./tests -t ./ || DO_FAIL=exit 2 ;
+	$(QUIET)coverage combine 2>/dev/null || true
+	$(QUIET)coverage report --include=FetchPublicBlacklists* 2>/dev/null || true
+	$(QUIET)$(DO_FAIL);
 	$(QUIET)$(ECHO) "$@: Done."
 
-clean:
-	$(QUIET)$(MAKE) -C ./docs/ -f Makefile clean 2>/dev/null
-	$(QUIET)rm -f tests/*.pyc 2>/dev/null
-	$(QUIET)rm -f code/*.pyc 2>/dev/null
-	$(QUIET)rm -f *.pyc 2>/dev/null
+test-tox: cleanup
+	$(QUIET)tox -v --
+	$(QUITE)$(WAIT)
 	$(QUIET)$(ECHO) "$@: Done."
 
-must_be_root:
-	runner=`whoami` ; \
-	if test $$runner != "root" ; then echo "You are not root." ; exit 1 ; fi
+test-style: cleanup
+	$(QUIET)flake8 --ignore=W191,W391 --max-line-length=100 --verbose --count
+	$(QUIET)$(ECHO) "$@: Done."
+
+cleanup:
+	$(QUIET)rm -f tests/*.pyc 2>/dev/null || true
+	$(QUIET)rm -f tests/*~ 2>/dev/null || true
+	$(QUIET)rm -Rf tests/__pycache__ 2>/dev/null || true
+	$(QUIET)rm -f FetchPublicBlacklists/*.pyc 2>/dev/null || true
+	$(QUIET)rm -Rf FetchPublicBlacklists/__pycache__ 2>/dev/null || true
+	$(QUIET)rm -Rf FetchPublicBlacklists/*/__pycache__ 2>/dev/null || true
+	$(QUIET)rm -f FetchPublicBlacklists/*~ 2>/dev/null || true
+	$(QUIET)rm -f *.pyc 2>/dev/null || true
+	$(QUIET)rm -f FetchPublicBlacklists/*/*.pyc 2>/dev/null || true
+	$(QUIET)rm -f FetchPublicBlacklists/*/*~ 2>/dev/null || true
+	$(QUIET)rm -f *.DS_Store 2>/dev/null || true
+	$(QUIET)rm -f FetchPublicBlacklists/*.DS_Store 2>/dev/null || true
+	$(QUIET)rm -f FetchPublicBlacklists/*/*.DS_Store 2>/dev/null || true
+	$(QUIET)rm -f Fetch_Public_Blacklists.egg-info/* 2>/dev/null || true
+	$(QUIET)rmdir Fetch_Public_Blacklists.egg-info 2>/dev/null || true
+	$(QUIET)rm -f ./*/*~ 2>/dev/null || true
+	$(QUIET)rm -f ./*~ 2>/dev/null || true
+	$(QUIET)coverage erase 2>/dev/null || true
+	$(QUIET)rm -f ./.coverage 2>/dev/null || true
+	$(QUIET)rm -f ./sitecustomize.py 2>/dev/null || true
+	$(QUIET)rm -f ./.*~ 2>/dev/null || true
+	$(QUIET)rm -Rf ./.tox/ 2>/dev/null || true
+
+clean: cleanup
+	$(QUIET)$(MAKE) -s -C ./docs/ -f Makefile clean 2>/dev/null || true
+	$(QUIET)$(ECHO) "$@: Done."
 
 /usr/local/: /usr/ must_be_root
 	$(QUITE)$(INSTALL) $(INST_OWN) $(INST_OPTS) -d "$@"
@@ -100,7 +120,7 @@ must_be_root:
 	$(QUITE)$(INSTALL) -d $(INST_OWN) $(INST_OPTS) "$@"
 	$(QUITE)$(WAIT)
 
-/usr/lib/FetchPublicBlacklists/code/: /usr/lib/FetchPublicBlacklists/ must_be_root
+/usr/lib/FetchPublicBlacklists/FetchPublicBlacklists/: /usr/lib/FetchPublicBlacklists/ must_be_root
 	$(QUITE)$(INSTALL) -d $(INST_OWN) $(INST_OPTS) "$@"
 	$(QUITE)$(WAIT)
 

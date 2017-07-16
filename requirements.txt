@@ -1,2 +1,18 @@
 #nose
 sphinx
+# re - builtin - PSF licence?
+# argparse - builtin - PSF licence
+argparse>=1.4.0
+# argparse - builtin - PSF licence
+setuptools>=35.0.2
+# virtualenv - MIT
+virtualenv>=15.0.1
+# six - MIT
+#six>=1.0.0
+tox>=2.7.0
+#py>=1.4.33
+pip>=8.2
+requests>=2.14.2
+urllib3>=1.13.1
+#-e git+https://github.com/reactive-firewall/FetchPublicBlacklists.git#egg=FetchPublicBlacklists
+
