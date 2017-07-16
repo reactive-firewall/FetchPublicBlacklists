@@ -2,7 +2,7 @@ coverage:
   status:
     project:
       default: off
-      piaplib:
+      FetchPublicBlacklists:
         target: 25%
         flags: FetchPublicBlacklists
         base: auto
