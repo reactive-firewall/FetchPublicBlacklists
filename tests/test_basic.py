@@ -64,14 +64,16 @@ class BasicTestSuite(unittest.TestCase):
             167239847,
             2291809961,
             67306243,
-            0
+            0,
+            None
         ]
         someIPv4s = helpers.IPv4s_to_ints([
             '6.161.98.167',
             '9.247.224.167',
             '136.154.62.169',
             '4.3.3.3',
-            '0.0.0.0'
+            '0.0.0.0',
+            None
         ])
         self.assertEqual(len(someIPv4s), len(someInts))
         for someIndex in range(len(someInts)):
