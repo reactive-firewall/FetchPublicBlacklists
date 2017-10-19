@@ -94,8 +94,8 @@ class BasicTestSuite(unittest.TestCase):
         for someIndex in range(len(someInts)):
             self.assertEqual(someIPv4s[someIndex], someInts[someIndex])
 
-    def test_IP_to_int(self):
-        """Test IP to int"""
+    def test_IPs_to_ints(self):
+        """Test IPs to ints"""
         self.assertEqual(helpers.int_to_IPv4(0), '0.0.0.0')
         self.assertEqual(helpers.int_to_IPv4(2291809961), '136.154.62.169')
         someInts = [
@@ -116,6 +116,26 @@ class BasicTestSuite(unittest.TestCase):
         for someIndex in range(len(someInts)):
             self.assertEqual(someIPs[someIndex], someInts[someIndex])
 
+    def test_Ints_to_IPs(self):
+        """Test Intss to IPs"""
+        someInts = helpers.ints_to_IPs([
+            111239847,
+            167239847,
+            2291809961,
+            67306243,
+            0
+        ])
+        someIPs = [
+            '00000110101000010110001010100111',
+            '00001001111101111110000010100111',
+            '10001000100110100011111010101001',
+            '00000100000000110000001100000011',
+            '00000000000000000000000000000000'
+        ]
+        self.assertEqual(len(someIPs), len(someInts))
+        for someIndex in range(len(someInts)):
+            self.assertEqual(someIPs[someIndex], someInts[someIndex])
+
     def test_IPv4s_to_CIDRs(self):
         """Test of generating IPv4 CIDR suffix string from IPv4 Dot notations"""
         test_list = [
@@ -132,6 +152,10 @@ class BasicTestSuite(unittest.TestCase):
             '1.2.2.252/30'
         ]
         self.assertEqual(helpers.compress_ip_list_to_cidr(test_list), match_list)
+
+    def test_IPv4s_to_valid_CIDR(self):
+        """Test of generating valid IPv4 CIDR suffix string from IPv4 Dot notations"""
+        self.assertEqual(helpers.IPRange_to_valid_CIDR('192.168.0.1', '192.168.0.1'), '192.168.0.1/32')
 
     def test_IPv4_to_CIDR(self):
         """Test of generating IPv4 CIDR string from IPv4 Dot notation"""
