@@ -102,6 +102,24 @@ class AdvancedTestSuite(unittest.TestCase):
 			self.assertEqual(False, True)
 		self.assertEqual(True, True)
 
+	def test_dryrun_dispaly(self):
+		"""Test dry run of tool with --display"""
+		try:
+			print(str(
+				checkPythonCommand(
+					[
+						getPythonCommand(),
+						"-m",
+						"FetchPublicBlacklists.FetchPublicBlacklists",
+						"--dry-run",
+                                                "--display"
+					]
+				)
+			))
+		except Exception:
+			self.assertEqual(False, True)
+		self.assertEqual(True, True)
+
 
 if __name__ == '__main__':
 	unittest.main()
