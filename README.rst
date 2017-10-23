@@ -38,6 +38,7 @@ Usage
 ------
 
 Fetch Public Blacklists [-h] [--dry-run] [--config CONFIG] [--tmp-dir]
+usage: Fetch Public Blacklists [-h] [--dry-run] [--config CONFIG] [--tmp-dir]
                                [--hosts-deny] [--snort-deny]
                                [--snort-blacklist SNORT_BLACKLIST]
                                [--nginx-deny]
@@ -51,7 +52,7 @@ Fetch Public Blacklists [-h] [--dry-run] [--config CONFIG] [--tmp-dir]
                                [--exim4-blacklist EXIM4_BLACKLIST] [--display]
                                [-V]
 
-optional arguments:
+Optional Arguments:
   -h, --help            show this help message and exit
   --dry-run             only show what would be done
   --config CONFIG       where is the config file
@@ -77,7 +78,6 @@ optional arguments:
                         exim4 local hosts blacklist
   --display             just print the ip list
   -V, --version         show program's version number and exit
-
 
 Simple Example
 -------
