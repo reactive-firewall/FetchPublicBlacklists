@@ -112,7 +112,14 @@ class AdvancedTestSuite(unittest.TestCase):
 						"-m",
 						"FetchPublicBlacklists.FetchPublicBlacklists",
 						"--dry-run",
-                                                "--display"
+						"--hosts-deny",
+						"--snort-deny",
+						"--nginx-deny",
+						"--splunk-deny",
+						"--iptables-deny",
+						"--pf-deny",
+						"--exim4-deny",
+						"--display"
 					]
 				)
 			))
