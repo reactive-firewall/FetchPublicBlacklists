@@ -26,7 +26,6 @@ class BasicTestSuite(unittest.TestCase):
             ['0.0.0.0', '136.154.62.169']
         )
 
-
     def test_IPv4_to_IP(self):
         """Test IPv4 Dot notation to IP binary string"""
         self.assertEqual(helpers.IPv4_to_IP('0.0.0.0'), '00000000000000000000000000000000')
