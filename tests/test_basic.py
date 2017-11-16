@@ -154,7 +154,10 @@ class BasicTestSuite(unittest.TestCase):
 
     def test_IPv4s_to_valid_CIDR(self):
         """Test of generating valid IPv4 CIDR suffix string from IPv4 Dot notations"""
-        self.assertEqual(helpers.IPRange_to_valid_CIDR('192.168.0.1', '192.168.0.1'), '192.168.0.1/32')
+        self.assertEqual(
+            helpers.IPRange_to_valid_CIDR('192.168.0.1', '192.168.0.1'),
+            '192.168.0.1/32'
+        )
 
     def test_IPv4_to_CIDR(self):
         """Test of generating IPv4 CIDR string from IPv4 Dot notation"""
