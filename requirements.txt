@@ -1,5 +1,5 @@
 #nose
-sphinx
+#sphinx
 # re - builtin - PSF licence?
 # argparse - builtin - PSF licence
 argparse>=1.4.0
