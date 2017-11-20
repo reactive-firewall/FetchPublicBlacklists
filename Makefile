@@ -81,6 +81,7 @@ cleanup:
 	$(QUIET)rm -f tests/*~ 2>/dev/null || true
 	$(QUIET)rm -Rf tests/__pycache__ 2>/dev/null || true
 	$(QUIET)rm -f FetchPublicBlacklists/*.pyc 2>/dev/null || true
+	$(QUIET)rm -Rf FetchPublicBlacklists.egg-info 2>/dev/null || true
 	$(QUIET)rm -Rf FetchPublicBlacklists/__pycache__ 2>/dev/null || true
 	$(QUIET)rm -Rf FetchPublicBlacklists/*/__pycache__ 2>/dev/null || true
 	$(QUIET)rm -f FetchPublicBlacklists/*~ 2>/dev/null || true
