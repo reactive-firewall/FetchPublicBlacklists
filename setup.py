@@ -32,7 +32,7 @@ except Exception:
 	requirements = None
 
 try:
-	with open("""./README.md""") as f:
+	with open("""./README.rst""") as f:
 		readme = f.read()
 except Exception:
 	readme = str("""See https://github.com/reactive-firewall/FetchPublicBlacklists/README.rst""")
@@ -61,9 +61,9 @@ except Exception:
 	class_tags = str("""Development Status :: 4 - Beta""")
 
 setup(
-	name="""FetchPublicBlacklists""",
+	name="""FetchPublicBlackists""",
 	version="""0.3.3""",
-	description="""Fetches Public Blacklists""",
+	description="""A Tool for downloading public blacklists""",
 	long_description=readme,
 	install_requires=requirements,
 	author="""reactive-firewall""",
