@@ -6,6 +6,10 @@ branches:
     - master
     - stable
 
+python:
+
+os:
+
 matrix:
   include:
   - os: linux
@@ -52,6 +56,8 @@ matrix:
     osx_image: xcode9
     language: generic
   allow_failure:
+  - os: linux
+    python:  "3.8-dev"
   - os: osx
     osx_image: xcode6.4
     language: generic
