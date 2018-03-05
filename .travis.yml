@@ -94,8 +94,9 @@ before_install:
   - if [ $TRAVIS_OS_NAME == osx ] ; then brew install python3.7 $INSTALL || true ; fi
   - if [ $TRAVIS_OS_NAME == osx ] ; then brew install coverage $INSTALL || true ; fi
   - if [ $TRAVIS_OS_NAME == osx ] ; then brew install codecov $INSTALL || true ; fi
-  - if [ $TRAVIS_OS_NAME == osx ] ; then export VERSIONER_PYTHON_VERSION=$TRAVIS_PYTHON_VERSION || true ; fi
-  - if [ $TRAVIS_OS_NAME == osx ] ; then defaults write com.apple.versioner.python Version $TRAVIS_PYTHON_VERSION || true ; fi
+  - if [ $TRAVIS_OS_NAME == osx ] ; then export VERSIONER_PYTHON_VERSION=${TRAVIS_PYTHON_VERSION:-2.7} || true ; fi
+  - if [ $TRAVIS_OS_NAME == osx ] ; then defaults write com.apple.versioner.python Version ${TRAVIS_PYTHON_VERSION:2.7} || true ; fi
+  - if [ $TRAVIS_OS_NAME == osx ] ; then for A_PYTHON_VERSION in 2.6 2.7 3.2 3.3 3.4 3.5 3.6 3.7 3.8 ; do ln -sf /usr/local/bin/python${A_PYTHON_VERSION} /usr/bin/python${A_PYTHON_VERSION} || true ; done ; fi
   - travis_retry pip install tox || pip install tox || true ;
   - travis_retry pip install coverage || true ;
   - travis_retry pip install codecov || true ;
