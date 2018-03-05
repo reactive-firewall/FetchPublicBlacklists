@@ -127,6 +127,30 @@ class AdvancedTestSuite(unittest.TestCase):
 			self.assertEqual(False, True)
 		self.assertEqual(True, True)
 
+	def test_realrun_dispaly(self):
+		"""Test real run of tool with --display"""
+		try:
+			print(str(
+				checkPythonCommand(
+					[
+						getPythonCommand(),
+						"-m",
+						"FetchPublicBlacklists.FetchPublicBlacklists",
+						"--hosts-deny",
+						"--snort-deny",
+						"--nginx-deny",
+						"--splunk-deny",
+						"--iptables-deny",
+						"--pf-deny",
+						"--exim4-deny",
+						"--display"
+					]
+				)
+			))
+		except Exception:
+			self.assertEqual(False, True)
+		self.assertEqual(True, True)
+
 
 if __name__ == '__main__':
 	unittest.main()
