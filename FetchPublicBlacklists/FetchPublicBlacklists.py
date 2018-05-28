@@ -240,13 +240,13 @@ def handleBlackListURL(someURL, temp_dir):
     return extractBlackList(cachefile)
 
 
-def compactList(list, intern_func=None):
+def compactList(someList, intern_func=None):
     if intern_func is None:
         def intern_func(x):
             return x
     seen = {}
     result = []
-    for item in list:
+    for item in someList:
         marker = intern_func(item)
         if marker in seen:
             continue
