@@ -9,7 +9,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 try:
     from . import helpers
 except Exception:
-    import helpers
+    import FetchPublicBlacklists.helpers as helpers
 
 
 def parseArgs():
@@ -173,7 +173,6 @@ def getBlackList(someURL, outFile):
     return True
 
 
-# TODO MOVE THIS TO A PY LIB
 def extractRegexPattern(theInput_Str, theInputPattern):
     import re
     sourceStr = str(theInput_Str)
@@ -234,7 +233,6 @@ def extractBlackList(someSourceFile):
 
 
 def handleBlackListURL(someURL, temp_dir):
-    import os
     cachefile = os.path.join(temp_dir, "blacklist_download.tmp")
     getBlackList(someURL, cachefile)
     return extractBlackList(cachefile)
