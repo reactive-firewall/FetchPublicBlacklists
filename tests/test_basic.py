@@ -164,6 +164,11 @@ class BasicTestSuite(unittest.TestCase):
         match_list = '1.2.3.0/29'
         self.assertEqual(helpers.IPRange_to_CIDR('1.2.3.1', '1.2.3.6'), match_list)
 
+    def test_IPv4_extract(self):
+        """Test of extracting IPv4 CIDR string from input"""
+        match_list = '1.2.3.6'
+        self.assertEqual(helpers.extractIPv4Addr('the result value is 1.2.3.6/32 not 3335.45.junk.xyz'), [match_list])
+
     def test_noop(self):
         """Test of junk for coverage"""
         self.assertFalse(helpers.getBcastAddrforIPv4())

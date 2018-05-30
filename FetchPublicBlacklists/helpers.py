@@ -67,32 +67,44 @@ def IP_to_int(someIP="00000000000000000000000000000000"):
 # array conversions [00000000000000000000000000000000] <-> [0.0.0.0]
 
 
-def IPv4s_to_IPs(someIPs=[DEFAULT_IPV4]):
+def IPv4s_to_IPs(someIPs=None):
+    if someIPs is None:
+        someIPs = [DEFAULT_IPV4]
     the_list = [IPv4_to_IP(someIP) for someIP in someIPs]
     return the_list
 
 
-def IPs_to_IPv4s(someIPs=["00000000000000000000000000000000"]):
+def IPs_to_IPv4s(someIPs=None):
+    if someIPs is None:
+        someIPs = [DEFAULT_IP]
     the_list = [IP_to_IPv4(someIP) for someIP in someIPs]
     return the_list
 
 
-def IPv4s_to_ints(someIPs=[DEFAULT_IPV4]):
+def IPv4s_to_ints(someIPs=None):
+    if someIPs is None:
+        someIPs = [DEFAULT_IPV4]
     the_list = [IPv4_to_int(someIP) for someIP in someIPs]
     return the_list
 
 
-def IPs_to_ints(someIPs=["00000000000000000000000000000000"]):
+def IPs_to_ints(someIPs=None):
+    if someIPs is None:
+        someIPs = [DEFAULT_IP]
     the_list = [IP_to_int(someIP) for someIP in someIPs]
     return the_list
 
 
-def ints_to_IPs(someInts=["0"]):
+def ints_to_IPs(someInts=None):
+    if someInts is None:
+        someInts = [str("0")]
     the_list = [int_to_IP(someInt) for someInt in someInts]
     return the_list
 
 
-def ints_to_IPv4s(someInts=["0"]):
+def ints_to_IPv4s(someInts=None):
+    if someInts is None:
+        someInts = [str("0")]
     the_list = [int_to_IPv4(someInt) for someInt in someInts]
     return the_list
 
@@ -163,17 +175,29 @@ def Compile_IPv4_Runs(someMixedArray, gap=1):
     return the_result
 
 
-def get_IP_bit(someIP="00000000000000000000000000000000", some_bit=0):
+def get_IP_bit(someIP=None, some_bit=None):
+    if someIP is None:
+        someIP = DEFAULT_IP
+    if some_bit is None:
+        some_bit = 0
     theResult = str(int(someIP[0:some_bit], 2))
     return theResult
 
 
-def get_IPv4_bit(someIPv4=DEFAULT_IPV4, some_bit=0):
+def get_IPv4_bit(someIPv4=None, some_bit=None):
+    if someIP is None:
+        someIP = DEFAULT_IPV4
+    if some_bit is None:
+        some_bit = 0
     theResult = get_IP_bit(IPv4_to_IP(someIPv4), some_bit)
     return theResult
 
 
-def IP_to_CIDR(someIP=("0" * 32), some_mask_bit=0):
+def IP_to_CIDR(someIP=None, some_mask_bit=None):
+    if someIP is None:
+        someIP = DEFAULT_IP
+    if some_mask_bit is None:
+        some_mask_bit = 0
     theResult = str(someIP)
     if some_mask_bit is not 32:
         theResult = str(
@@ -182,7 +206,11 @@ def IP_to_CIDR(someIP=("0" * 32), some_mask_bit=0):
     return str(IP_to_IPv4(theResult) + "/" + str(some_mask_bit))
 
 
-def IPv4_to_CIDR(someIP=DEFAULT_IPV4, some_mask_bit=0):
+def IPv4_to_CIDR(someIP=None, some_mask_bit=None):
+    if someIP is None:
+        someIP = DEFAULT_IPV4
+    if some_mask_bit is None:
+        some_mask_bit = 0
     theResult = IP_to_CIDR(IPv4_to_IP(someIP), some_mask_bit)
     return theResult
 
@@ -258,7 +286,9 @@ def getNetAddrforIPv4(startIPv4=DEFAULT_IPV4, net_mask_bit=32):
     return theResult[0:offset]
 
 
-def compress_ip_list_to_cidr(someIPList=[DEFAULT_IPV4]):
+def compress_ip_list_to_cidr(someIPList=None):
+    if someIPList is None:
+        someIPList = [DEFAULT_IPV4]
     temp_list = Compile_IPv4_Runs(someIPList)
     theResult = None
     for l in temp_list:
@@ -288,7 +318,6 @@ def getBcastAddrforIPv4():
     return False
 
 
-# TODO MOVE THIS TO A PY LIB
 def extractRegexPattern(theInput_Str, theInputPattern):
     import re
     sourceStr = str(theInput_Str)

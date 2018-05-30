@@ -14,6 +14,11 @@ exclude_lines =
     raise NotImplementedError
     raise ImportError
     except unittest.SkipTest as skiperr
+    if someIPs is None:
+    if someIP is None:
+    if some_bit is None:
+    if some_mask_bit is None:
+    if someInts is None:
 
     # Don't complain if non-runnable code isn't run:
 	if __name__ in u'__main__':
