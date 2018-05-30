@@ -185,8 +185,8 @@ def get_IP_bit(someIP=None, some_bit=None):
 
 
 def get_IPv4_bit(someIPv4=None, some_bit=None):
-    if someIP is None:
-        someIP = DEFAULT_IPV4
+    if someIPv4 is None:
+        someIPv4 = DEFAULT_IPV4
     if some_bit is None:
         some_bit = 0
     theResult = get_IP_bit(IPv4_to_IP(someIPv4), some_bit)
