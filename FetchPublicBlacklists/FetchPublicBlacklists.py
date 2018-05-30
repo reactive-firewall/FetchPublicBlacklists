@@ -4,6 +4,7 @@
 import argparse
 import sys
 import os
+import tempfile
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 try:
@@ -508,7 +509,7 @@ def main():
     if args.dry_run is True:
         print(str("Fetch Public Blacklists: dry run"))
     if args.config is not None:
-        tmp_dir = "/tmp/"
+        tmp_dir = tempfile.TemporaryDirectory(dir="/tmp/")
         try:
             temp_url_list = extractConfigItem('URL Sources', 'urls', args.config).split(",")
         except Exception:
@@ -608,6 +609,7 @@ def main():
             else:
                 temp_list += handleBlackListURL(nURL, tmp_dir)
             temp_list = helpers.compress_ip_list_to_cidr(compactList(temp_list))
+	tmp_dir.cleanup()
         if args.display is True:
             if active_hosts_deny is True:
                 print(str('#'))
