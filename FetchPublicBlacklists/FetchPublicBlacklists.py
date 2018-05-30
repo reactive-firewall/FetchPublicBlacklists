@@ -605,9 +605,9 @@ def main():
                 print(str("now on "))
                 print(str("URL "), nURL)
             if temp_list is None:
-                temp_list = handleBlackListURL(nURL, os.path.abspath(tmp_dir))
+                temp_list = handleBlackListURL(nURL, os.path.abspath(str(tmp_dir.name)))
             else:
-                temp_list += handleBlackListURL(nURL, os.path.abspath(tmp_dir))
+                temp_list += handleBlackListURL(nURL, os.path.abspath(str(tmp_dir.name)))
             temp_list = helpers.compress_ip_list_to_cidr(compactList(temp_list))
         tmp_dir.cleanup()
         if args.display is True:

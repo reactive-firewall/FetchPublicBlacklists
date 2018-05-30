@@ -61,6 +61,7 @@ def checkPythonCommand(args=[None], stderr=None):
 			theOutput = subprocess.check_output(args, stderr=stderr)
 	except Exception as cmderror:
 		theOutput = None
+		del(cmderror)
 	try:
 		if isinstance(theOutput, bytes):
 			theOutput = theOutput.decode('utf8')
